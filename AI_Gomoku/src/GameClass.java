@@ -7,11 +7,11 @@ public class GameClass {
     int plusInfinity = 200, minusInfinity = -200 ;
     Scanner scanner = new Scanner(System.in) ;
 
-    int row = 9 ;
-    int column = 9 ;
+    int row = 10 ;
+    int column = 10 ;
 
     int gamePoint = 5 ;
-    int terminateValue = 0 ;
+    int terminalValue = 0 ;
 
     int overallDepth =  9;
 
@@ -51,34 +51,44 @@ public class GameClass {
                 System.out.println(mainBoardAvailableNodeList.size());
                 if(mainBoardAvailableNodeList.size()==0){
                     mainBoardAvailableNodeList = findAvailableNodes(gameBoard, "main2") ;
+
+                    if(mainBoardAvailableNodeList.size()==0){
+                        System.out.println("DRAW................Game Over..................");
+                        return;
+                    }
+
                     if(mainBoardAvailableNodeList.size()>=20 && mainBoardAvailableNodeList.size()<30){
                         overallDepth = 7 ;
                     }
                     else if(mainBoardAvailableNodeList.size()>=30 && mainBoardAvailableNodeList.size()<35){
                         overallDepth = 6 ;
                     }
-                    if(mainBoardAvailableNodeList.size()>=35 && mainBoardAvailableNodeList.size()<40){
+                    else if(mainBoardAvailableNodeList.size()>=35 && mainBoardAvailableNodeList.size()<40){
                         overallDepth = 6 ;
                     }
-                    if(mainBoardAvailableNodeList.size()>=40  && mainBoardAvailableNodeList.size()<45){
-                        overallDepth = 6 ;
-                    }
-                    if(mainBoardAvailableNodeList.size()>=45 && mainBoardAvailableNodeList.size()<50){
+                    else if(mainBoardAvailableNodeList.size()>=40  && mainBoardAvailableNodeList.size()<45){
                         overallDepth = 5 ;
                     }
-                    if(mainBoardAvailableNodeList.size()>=50 && mainBoardAvailableNodeList.size()<55){
+                    else if(mainBoardAvailableNodeList.size()>=45 && mainBoardAvailableNodeList.size()<50){
                         overallDepth = 5 ;
                     }
-                    if(mainBoardAvailableNodeList.size()>=50 && mainBoardAvailableNodeList.size()<55){
+                    else if(mainBoardAvailableNodeList.size()>=50 && mainBoardAvailableNodeList.size()<55){
                         overallDepth = 5 ;
                     }
-                    if(mainBoardAvailableNodeList.size()>=55){
+                    else if(mainBoardAvailableNodeList.size()>=50 && mainBoardAvailableNodeList.size()<55){
+                        overallDepth = 5 ;
+                    }
+                    else if(mainBoardAvailableNodeList.size()>=55 && mainBoardAvailableNodeList.size()<60){
                         overallDepth = 4 ;
+                    }
+                    else if(mainBoardAvailableNodeList.size()>=60 && mainBoardAvailableNodeList.size()<65){
+                        overallDepth = 4 ;
+                    }
+                    else if(mainBoardAvailableNodeList.size()>=65){
+                        overallDepth = 3 ;
                     }
                 }
                 System.out.println(mainBoardAvailableNodeList.size());
-
-
             }
             else{
                 mini_max(gameBoard, 0, "AI", minusInfinity, plusInfinity) ;
@@ -106,58 +116,58 @@ public class GameClass {
         }
     }
 
-    int setTerminateValue(int human_Count, int AI_Count, String player, int flag){
+    int setTerminalValue(int human_Count, int AI_Count, String player, int flag){
         if(flag==1){
             if(player=="human"){
-                if(AI_Count>terminateValue){
-                    terminateValue = AI_Count ;
+                if(AI_Count>terminalValue){
+                    terminalValue = AI_Count ;
                 }
             }
             else if(player=="AI"){
-                if(human_Count>terminateValue){
-                    terminateValue = human_Count ;
+                if(human_Count>terminalValue){
+                    terminalValue = human_Count ;
                 }
             }
         }
         else if(flag==2){
             if(player=="human"){
-                if(AI_Count>terminateValue){
-                    terminateValue = AI_Count ;
+                if(AI_Count>terminalValue){
+                    terminalValue = AI_Count ;
                 }
             }
         }
         else if (flag==3){
             if(player=="AI"){
-                if(human_Count>terminateValue){
-                    terminateValue = human_Count ;
+                if(human_Count>terminalValue){
+                    terminalValue = human_Count ;
                 }
             }
         }
 
-        return terminateValue ;
+        return terminalValue ;
     }
 
     boolean gameOver(int [][] board, String player){
-        int human_Count=0, AI_Count=0, terminateValue=0;
+        int human_Count=0, AI_Count=0, terminalValue=0;
         for(int i=0; i<row ; i++){
-            setTerminateValue(human_Count, AI_Count, player, 1) ;
+            setTerminalValue(human_Count, AI_Count, player, 1) ;
             human_Count = 0;
             AI_Count = 0;
             for(int j=0; j<column ; j++){
                 if (board[i][j]==0){
-                    setTerminateValue(human_Count, AI_Count, player, 1) ;
+                    setTerminalValue(human_Count, AI_Count, player, 1) ;
                     human_Count = 0;
                     AI_Count = 0;
                     continue;
                 }
 
                 if(board[i][j]==6){
-                    setTerminateValue(human_Count, AI_Count, player, 2) ;
+                    setTerminalValue(human_Count, AI_Count, player, 2) ;
                     human_Count++ ;
                     AI_Count = 0 ;
                 }
                 else if(board[i][j]==7){
-                    setTerminateValue(human_Count, AI_Count, player, 3) ;
+                    setTerminalValue(human_Count, AI_Count, player, 3) ;
                     human_Count=0 ;
                     AI_Count++ ;
                 }
@@ -178,24 +188,24 @@ public class GameClass {
         human_Count = 0;
         AI_Count = 0;
         for(int i=0; i<row ; i++){
-            setTerminateValue(human_Count, AI_Count, player, 1) ;
+            setTerminalValue(human_Count, AI_Count, player, 1) ;
             human_Count = 0;
             AI_Count = 0;
             for(int j=0; j<column ; j++){
                 if (board[j][i]==0){
-                    setTerminateValue(human_Count, AI_Count, player, 1) ;
+                    setTerminalValue(human_Count, AI_Count, player, 1) ;
                     human_Count = 0;
                     AI_Count = 0;
                     continue;
                 }
 
                 if(board[j][i]==6){
-                    setTerminateValue(human_Count, AI_Count, player, 2) ;
+                    setTerminalValue(human_Count, AI_Count, player, 2) ;
                     human_Count++ ;
                     AI_Count = 0 ;
                 }
                 else if(board[j][i]==7){
-                    setTerminateValue(human_Count, AI_Count, player, 3) ;
+                    setTerminalValue(human_Count, AI_Count, player, 3) ;
                     human_Count=0 ;
                     AI_Count++ ;
                 }
@@ -218,13 +228,13 @@ public class GameClass {
         int flag = 1 ;
 
         for (int k = 0; k < row * column && flag==1;) {
-            setTerminateValue(human_Count, AI_Count, player, 1) ;
+            setTerminalValue(human_Count, AI_Count, player, 1) ;
             human_Count = 0;
             AI_Count = 0;
             if (isUp) {
                 for (; i >= 0 && j < column && i<row; j++, i--) {
                     if (board[i][j]==0){
-                        setTerminateValue(human_Count, AI_Count, player, 1) ;
+                        setTerminalValue(human_Count, AI_Count, player, 1) ;
                         human_Count = 0;
                         AI_Count = 0;
                         if(i>=row-1&&j>=column-1) {
@@ -235,12 +245,12 @@ public class GameClass {
                     }
 
                     if(board[j][i]==6){
-                        setTerminateValue(human_Count, AI_Count, player, 2) ;
+                        setTerminalValue(human_Count, AI_Count, player, 2) ;
                         human_Count++ ;
                         AI_Count = 0 ;
                     }
                     else if(board[j][i]==7){
-                        setTerminateValue(human_Count, AI_Count, player, 3) ;
+                        setTerminalValue(human_Count, AI_Count, player, 3) ;
                         human_Count=0 ;
                         AI_Count++ ;
                     }
@@ -275,7 +285,7 @@ public class GameClass {
                 for (; j >= 0 && i < row && j<column; i++, j--) {
 
                     if (board[i][j]==0){
-                        setTerminateValue(human_Count, AI_Count, player, 1) ;
+                        setTerminalValue(human_Count, AI_Count, player, 1) ;
                         human_Count = 0;
                         AI_Count = 0;
                         if(i>=row-1&&j>=column-1) {
@@ -286,12 +296,12 @@ public class GameClass {
                     }
 
                     if(board[i][j]==6){
-                        setTerminateValue(human_Count, AI_Count, player, 2) ;
+                        setTerminalValue(human_Count, AI_Count, player, 2) ;
                         human_Count++ ;
                         AI_Count = 0 ;
                     }
                     else if(board[i][j]==7){
-                        setTerminateValue(human_Count, AI_Count, player, 3) ;
+                        setTerminalValue(human_Count, AI_Count, player, 3) ;
                         human_Count=0 ;
                         AI_Count++ ;
                     }
@@ -330,13 +340,13 @@ public class GameClass {
         isUp = true;
 
         for (int k = 0; k < row * column;) {
-            setTerminateValue(human_Count, AI_Count, player, 1) ;
+            setTerminalValue(human_Count, AI_Count, player, 1) ;
             human_Count = 0;
             AI_Count = 0;
             if (isUp) {
                 for (; i >= 0 && j >= 0 && i<row && j<column; j--, i--) {
                     if (board[i][j]==0){
-                        setTerminateValue(human_Count, AI_Count, player, 1) ;
+                        setTerminalValue(human_Count, AI_Count, player, 1) ;
                         human_Count = 0;
                         AI_Count = 0;
                         if(i>=row-1&&j<=0) return false ;
@@ -344,12 +354,12 @@ public class GameClass {
                     }
 
                     if(board[i][j]==6){
-                        setTerminateValue(human_Count, AI_Count, player, 2) ;
+                        setTerminalValue(human_Count, AI_Count, player, 2) ;
                         human_Count++ ;
                         AI_Count = 0 ;
                     }
                     else if(board[i][j]==7){
-                        setTerminateValue(human_Count, AI_Count, player, 3) ;
+                        setTerminalValue(human_Count, AI_Count, player, 3) ;
                         human_Count=0 ;
                         AI_Count++ ;
                     }
@@ -380,7 +390,7 @@ public class GameClass {
             else {
                 for (; j >= 0 && i < row && j<column; i++, j++) {
                     if (board[i][j]==0){
-                        setTerminateValue(human_Count, AI_Count, player, 1) ;
+                        setTerminalValue(human_Count, AI_Count, player, 1) ;
                         human_Count = 0;
                         AI_Count = 0;
                         if(i>=row-1&&j>=column-1) return false ;
@@ -388,12 +398,12 @@ public class GameClass {
                     }
 
                     if(board[i][j]==6){
-                        setTerminateValue(human_Count, AI_Count, player, 2) ;
+                        setTerminalValue(human_Count, AI_Count, player, 2) ;
                         human_Count++ ;
                         AI_Count = 0 ;
                     }
                     else if(board[i][j]==7){
-                        setTerminateValue(human_Count, AI_Count, player, 3) ;
+                        setTerminalValue(human_Count, AI_Count, player, 3) ;
                         human_Count=0 ;
                         AI_Count++ ;
                     }
@@ -455,10 +465,10 @@ public class GameClass {
         if(level>overallDepth) {
             //System.out.println("hellloo....end");
             if(player=="AI"){
-                return terminateValue  ;
+                return terminalValue  ;
             }
             else{
-                return terminateValue*(-1);
+                return terminalValue*(-1);
             }
             //return 0 ;
         }
@@ -467,10 +477,10 @@ public class GameClass {
         if(availableNodeList.size()==0){
             //System.out.println("jjjjjjjjjjjhhhhhhhhhhhhhhhhhhhaaaaaaaaaaaaaaaaaammmmmmmmmmmmmmeeeeeeeeeeeeeeeelllllllllllaaaaaaaaaa");
             if(player=="AI"){
-                return terminateValue  ;
+                return terminalValue  ;
             }
             else{
-                return terminateValue*(-1);
+                return terminalValue*(-1);
             }
             //return 0 ;
         }
@@ -640,7 +650,11 @@ public class GameClass {
 
         int importantPointFlag = -1 ;
 
-        if(leftAI+rightAI>=4 && leftAI!=0 && rightAI!=0){
+        if(leftAI+rightAI>=4 && leftAI!=0 && rightAI!=0 || leftHuman+rightHuman>=4 && leftHuman!=0 && rightHuman!=0){
+            importantPointFlag = 1 ;
+        }
+        else if(leftAI+rightAI>=3 && leftAI!=0 && rightAI!=0 && board[i][j-leftAI-1]==0 && board[i][j+rightAI+1]==0
+                || leftHuman+rightHuman>=3 && leftHuman!=0 && rightHuman!=0 && board[i][j-leftHuman-1]==0 && board[i][j+rightHuman+1]==0){
             importantPointFlag = 1 ;
         }
         else if(leftAI==4 || rightAI==4 || leftHuman==4 || rightHuman==4){
@@ -726,7 +740,11 @@ public class GameClass {
                 }
             }
 
-            if(topAI+bottomAI>=4 && topAI!=0 && bottomAI!=0){
+            if(topAI+bottomAI>=4 && topAI!=0 && bottomAI!=0 || topHuman+bottomHuman>=4 && topHuman!=0 && bottomHuman!=0){
+                importantPointFlag = 1 ;
+            }
+            else if(topAI+bottomAI>=3 && topAI!=0 && bottomAI!=0 && board[i-topAI-1][j]==0 && board[i+bottomAI+1][j]==0
+                    || topHuman+bottomHuman>=3 && topHuman!=0 && bottomHuman!=0 && board[i-topHuman-1][j]==0 && board[i+bottomHuman+1][j]==0){
                 importantPointFlag = 1 ;
             }
             else if(topAI==4 || topHuman==4 || bottomAI==4 || bottomHuman==4){
@@ -814,9 +832,13 @@ public class GameClass {
                 }
             }
 
-            System.out.println("value i:" + i + "\t\tvalue j:" + j + "\t\thumanTopLEft:" + topLeftHuman + "\t\tbotttomRight" + bottomRightHuman );
+            //System.out.println("value i:" + i + "\t\tvalue j:" + j + "\t\thumanTopLEft:" + topLeftHuman + "\t\tbotttomRight" + bottomRightHuman );
 
-            if(topLeftAI+bottomRightAI>=4 && topLeftAI!=0 && bottomRightAI!=0){
+            if(topLeftAI+bottomRightAI>=4 && topLeftAI!=0 && bottomRightAI!=0 || topLeftHuman+bottomRightHuman>=4 && topLeftHuman!=0 && bottomRightHuman!=0){
+                importantPointFlag = 1 ;
+            }
+            else if(topLeftAI+bottomRightAI>=3 && topLeftAI!=0 && bottomRightAI!=0 && board[i-topLeftAI-1][j-topLeftAI-1]==0 && board[i+bottomRightAI+1][j+bottomRightAI+1]==0
+                    || topLeftHuman+bottomRightHuman>=3 && topLeftHuman!=0 && bottomRightHuman!=0 && board[i-topLeftHuman-1][j-topLeftHuman-1]==0 && board[i+bottomRightHuman+1][j+bottomRightHuman+1]==0){
                 importantPointFlag = 1 ;
             }
             else if(topLeftAI==4 || bottomRightAI==4 || topLeftHuman==4 || bottomRightHuman==4){
@@ -908,6 +930,9 @@ public class GameClass {
             if(bottomLeftAI+topRightAI>=4 && bottomLeftAI!=0 && topRightAI!=0){
                 importantPointFlag = 1 ;
             }
+            if(bottomLeftAI+topRightAI>=4 && bottomLeftAI!=0 && topRightAI!=0 && board[i+bottomLeftAI+1][j-bottomLeftAI-1]==0 && board[i-topRightAI-1][j+topRightAI+1]==0 ){
+                importantPointFlag = 1 ;
+            }
             else if(bottomLeftAI==4 || topRightAI==4 || bottomLeftHuman==4 || topRightHuman==4){
                 importantPointFlag = 1 ;
             }
@@ -958,4 +983,3 @@ public class GameClass {
         else return b ;
     }
 }
-
