@@ -930,7 +930,8 @@ public class GameClass {
             if(bottomLeftAI+topRightAI>=4 && bottomLeftAI!=0 && topRightAI!=0){
                 importantPointFlag = 1 ;
             }
-            if(bottomLeftAI+topRightAI>=4 && bottomLeftAI!=0 && topRightAI!=0 && board[i+bottomLeftAI+1][j-bottomLeftAI-1]==0 && board[i-topRightAI-1][j+topRightAI+1]==0 ){
+            else if(bottomLeftAI+topRightAI>=3 && bottomLeftAI!=0 && topRightAI!=0 && board[i+bottomLeftAI+1][j-bottomLeftAI-1]==0 && board[i-topRightAI-1][j+topRightAI+1]==0 
+                    || bottomLeftHuman+topRightHuman>=4 && bottomLeftHuman!=0 && topRightHuman!=0 && board[i+bottomLeftHuman+1][j-bottomLeftHuman-1]==0 && board[i-topRightHuman-1][j+topRightHuman+1]==0 ){
                 importantPointFlag = 1 ;
             }
             else if(bottomLeftAI==4 || topRightAI==4 || bottomLeftHuman==4 || topRightHuman==4){
