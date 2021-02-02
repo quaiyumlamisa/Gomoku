@@ -184,7 +184,7 @@ public class GomokuUI extends AnchorPane {
         c.setCenterX(mainCircle[pt1].getCenterX());
         c.setCenterY(mainCircle[pt1].getCenterY());
 
-        if(player=="AI") c.setFill(Color.BLUE);
+        if(player=="AI") c.setFill(Color.RED);
         if(player!="AI") c.setFill(Color.BLACK);
 
         getChildren().add(c) ;
@@ -205,6 +205,8 @@ public class GomokuUI extends AnchorPane {
 
                     if(mainBoardAvailableNodeList.size()==0){
                         System.out.println("DRAW................Game Over..................");
+                        label1.setText("GAME OVER");
+                        btn.setText("DRAW MATCH");
                         return;
                     }
                     if(mainBoardAvailableNodeList.size()>=15 && mainBoardAvailableNodeList.size()<20){
@@ -325,7 +327,7 @@ public class GomokuUI extends AnchorPane {
         line.setEndX(mainCircle[endCircle].getCenterX());
         line.setEndY(mainCircle[endCircle].getCenterY());
 
-        line.setStroke(Color.RED);
+        line.setStroke(Color.BLUE);
         line.setStrokeWidth(10);
 
         getChildren().add(line) ;
@@ -653,7 +655,7 @@ public class GomokuUI extends AnchorPane {
                     }
 
                     k++;
-                    
+
                 }
 
                 if (j >= column && i <= row - 1)
